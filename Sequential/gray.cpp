@@ -26,8 +26,8 @@ int main(){
 	
 	char name[20];
 	unsigned int x=1;  
-	while(x<5000){
-		sprintf(name,"img/img%d.jpg",x);
+	while(x<5001){
+		sprintf(name,"img/image%d.jpg",x);
 		Mat img = imread(name);
 
 		Mat img1 = img.clone();
@@ -50,11 +50,11 @@ int main(){
 		sixth(img,img8,"green");
 		sixth(img,img9,"red");
 		seventh(img,img10,40);
-	//	cout<<x<<endl; 
+//		cout<<x<<endl; 
 		x++;
 	}
     tf = clock();
-    cout<<(tf-ti)*0.000001<<endl;
+    cout<<(int)((tf-ti)*0.000001)/60<<" minutos e "<<((tf-ti)*0.000001/60 - (int)(tf-ti)*0.000001/60) * 60<< " segundos"<<endl; 
 	return 0;
 }
 
@@ -101,7 +101,7 @@ Mat second(Mat src, Mat dst){
             //*int blue = pixel.val[0];
             //*int green = pixel.val[1];
             //*int red = pixel.val[2];
-            int mean = (pixel.val[0]*0.07+pixel.val[1]*0.72+pixel.val[2]*0.21/3);
+            int mean = (pixel.val[0]*0.11+pixel.val[1]*0.59+pixel.val[2]*0.3);
             dst.at<Vec3b>(x, y).val[0] = mean;
             dst.at<Vec3b>(x, y).val[1] = mean;
             dst.at<Vec3b>(x, y).val[2] = mean;
@@ -118,7 +118,7 @@ Mat third(Mat src, Mat dst){
             //*int blue = pixel.val[0];
             //*int green = pixel.val[1];
             //*int red = pixel.val[2];
-            int mean = (pixel.val[0]*0.11+pixel.val[1]*0.59+pixel.val[2]*0.3/3);
+            int mean = (pixel.val[0]*0.0722+pixel.val[1]*0.7152+pixel.val[2]*0.2126);
             dst.at<Vec3b>(x, y).val[0] = mean;
             dst.at<Vec3b>(x, y).val[1] = mean;
             dst.at<Vec3b>(x, y).val[2] = mean;

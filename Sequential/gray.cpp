@@ -50,11 +50,11 @@ int main(){
 		sixth(img,img8,"green");
 		sixth(img,img9,"red");
 		seventh(img,img10,40);
-//		cout<<x<<endl; 
+		cout<<x<<endl; 
 		x++;
 	}
     tf = clock();
-    cout<<(int)((tf-ti)*0.000001)/60<<" minutos e "<<((tf-ti)*0.000001/60 - (int)(tf-ti)*0.000001/60) * 60<< " segundos"<<endl; 
+    cout<<((tf-ti)*0.000001)<<endl; 
 	return 0;
 }
 
@@ -84,10 +84,10 @@ Mat first(Mat src, Mat dst){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
-            int mean = (pixel.val[0]+pixel.val[1]+pixel.val[2])/3;
-            dst.at<Vec3b>(x, y).val[0] = mean;
-            dst.at<Vec3b>(x, y).val[1] = mean;
-            dst.at<Vec3b>(x, y).val[2] = mean;
+            int method = (pixel.val[0]+pixel.val[1]+pixel.val[2])/3;
+            dst.at<Vec3b>(x, y).val[0] = method;
+            dst.at<Vec3b>(x, y).val[1] = method;
+            dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
     return dst;
@@ -101,10 +101,10 @@ Mat second(Mat src, Mat dst){
             //*int blue = pixel.val[0];
             //*int green = pixel.val[1];
             //*int red = pixel.val[2];
-            int mean = (pixel.val[0]*0.11+pixel.val[1]*0.59+pixel.val[2]*0.3);
-            dst.at<Vec3b>(x, y).val[0] = mean;
-            dst.at<Vec3b>(x, y).val[1] = mean;
-            dst.at<Vec3b>(x, y).val[2] = mean;
+            int method = (pixel.val[0]*0.11+pixel.val[1]*0.59+pixel.val[2]*0.3);
+            dst.at<Vec3b>(x, y).val[0] = method;
+            dst.at<Vec3b>(x, y).val[1] = method;
+            dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
     return dst;
@@ -118,10 +118,10 @@ Mat third(Mat src, Mat dst){
             //*int blue = pixel.val[0];
             //*int green = pixel.val[1];
             //*int red = pixel.val[2];
-            int mean = (pixel.val[0]*0.0722+pixel.val[1]*0.7152+pixel.val[2]*0.2126);
-            dst.at<Vec3b>(x, y).val[0] = mean;
-            dst.at<Vec3b>(x, y).val[1] = mean;
-            dst.at<Vec3b>(x, y).val[2] = mean;
+            int method = (pixel.val[0]*0.0722+pixel.val[1]*0.7152+pixel.val[2]*0.2126);
+            dst.at<Vec3b>(x, y).val[0] = method;
+            dst.at<Vec3b>(x, y).val[1] = method;
+            dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
     return dst;
@@ -135,10 +135,10 @@ Mat fourth(Mat src, Mat dst){
             //*int blue = pixel.val[0];
             //*int green = pixel.val[1];
             //*int red = pixel.val[2];
-            int mean = ( (max((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2])   + min((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2])) / 2);
-            dst.at<Vec3b>(x, y).val[0] = mean;
-            dst.at<Vec3b>(x, y).val[1] = mean;
-            dst.at<Vec3b>(x, y).val[2] = mean;
+            int method = ( (max((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2])   + min((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2])) / 2);
+            dst.at<Vec3b>(x, y).val[0] = method;
+            dst.at<Vec3b>(x, y).val[1] = method;
+            dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
     return dst;
@@ -153,10 +153,10 @@ Mat fifth(Mat src, Mat dst, string dec){
                 //*int blue = pixel.val[0];
                 //*int green = pixel.val[1];
                 //*int red = pixel.val[2];
-                int mean = max((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2]);
-                dst.at<Vec3b>(x, y).val[0] = mean;
-                dst.at<Vec3b>(x, y).val[1] = mean;
-                dst.at<Vec3b>(x, y).val[2] = mean;
+                int method = max((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2]);
+                dst.at<Vec3b>(x, y).val[0] = method;
+                dst.at<Vec3b>(x, y).val[1] = method;
+                dst.at<Vec3b>(x, y).val[2] = method;
             }
         }
     }
@@ -168,10 +168,10 @@ Mat fifth(Mat src, Mat dst, string dec){
                 //*int blue = pixel.val[0];
                 //*int green = pixel.val[1];
                 //*int red = pixel.val[2];
-                int mean = min((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2]);
-                dst.at<Vec3b>(x, y).val[0] = mean;
-                dst.at<Vec3b>(x, y).val[1] = mean;
-                dst.at<Vec3b>(x, y).val[2] = mean;
+                int method = min((int)pixel.val[0],(int)pixel.val[1],(int)pixel.val[2]);
+                dst.at<Vec3b>(x, y).val[0] = method;
+                dst.at<Vec3b>(x, y).val[1] = method;
+                dst.at<Vec3b>(x, y).val[2] = method;
             }
         }
     }
@@ -184,10 +184,10 @@ Mat sixth(Mat src, Mat dst, string channel){
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
-                int mean = pixel.val[0]; //blue
-                dst.at<Vec3b>(x, y).val[0] = mean;
-                dst.at<Vec3b>(x, y).val[1] = mean;
-                dst.at<Vec3b>(x, y).val[2] = mean;
+                int method = pixel.val[0]; //blue
+                dst.at<Vec3b>(x, y).val[0] = method;
+                dst.at<Vec3b>(x, y).val[1] = method;
+                dst.at<Vec3b>(x, y).val[2] = method;
             }
         }
     }
@@ -196,10 +196,10 @@ Mat sixth(Mat src, Mat dst, string channel){
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
-                int mean = pixel.val[1]; //green
-                dst.at<Vec3b>(x, y).val[0] = mean;
-                dst.at<Vec3b>(x, y).val[1] = mean;
-                dst.at<Vec3b>(x, y).val[2] = mean;
+                int method = pixel.val[1]; //green
+                dst.at<Vec3b>(x, y).val[0] = method;
+                dst.at<Vec3b>(x, y).val[1] = method;
+                dst.at<Vec3b>(x, y).val[2] = method;
             }
         }
     }
@@ -208,10 +208,10 @@ Mat sixth(Mat src, Mat dst, string channel){
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
-                int mean = pixel.val[2]; //red
-                dst.at<Vec3b>(x, y).val[0] = mean;
-                dst.at<Vec3b>(x, y).val[1] = mean;
-                dst.at<Vec3b>(x, y).val[2] = mean;
+                int method = pixel.val[2]; //red
+                dst.at<Vec3b>(x, y).val[0] = method;
+                dst.at<Vec3b>(x, y).val[1] = method;
+                dst.at<Vec3b>(x, y).val[2] = method;
             }
         }
     }
@@ -228,10 +228,10 @@ Mat seventh(Mat src, Mat dst, int numberOfShades){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
-            int mean = (pixel.val[0]+pixel.val[1]+pixel.val[2])/3;
-            dst.at<Vec3b>(x, y).val[0] = ((mean/conversionFactor) + 0.5)*conversionFactor;
-            dst.at<Vec3b>(x, y).val[1] = ((mean/conversionFactor) + 0.5)*conversionFactor;
-            dst.at<Vec3b>(x, y).val[2] = ((mean/conversionFactor) + 0.5)*conversionFactor;
+            int method = (pixel.val[0]+pixel.val[1]+pixel.val[2])/3;
+            dst.at<Vec3b>(x, y).val[0] = ((method/conversionFactor) + 0.5)*conversionFactor;
+            dst.at<Vec3b>(x, y).val[1] = ((method/conversionFactor) + 0.5)*conversionFactor;
+            dst.at<Vec3b>(x, y).val[2] = ((method/conversionFactor) + 0.5)*conversionFactor;
         }
     }
     return dst;

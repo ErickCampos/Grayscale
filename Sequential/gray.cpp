@@ -2,8 +2,10 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <string>
-#include "iostream"
+#include <iostream>
 #include <sys/times.h>
+#include <omp.h>
+#include <stdio.h>
 
 
 using namespace cv;
@@ -23,39 +25,45 @@ Mat seventh(Mat src, Mat dst, int numberOfShades);
 int main(){
     clock_t ti, tf;
     ti = clock();
-	
-	char name[20];
-	unsigned int x=1;  
-	while(x<5001){
-		sprintf(name,"img/image%d.jpg",x);
-		Mat img = imread(name);
 
-		Mat img1 = img.clone();
-		Mat img2 = img.clone();
-		Mat img3 = img.clone();
-		Mat img4 = img.clone();
-		Mat img5 = img.clone();
-		Mat img6 = img.clone();
-		Mat img7 = img.clone();
-		Mat img8 = img.clone();
-		Mat img9 = img.clone();
-		Mat img10 = img.clone();
-		first(img,img1);
-		second(img, img2);
-		third(img, img3);
-		fourth(img, img4);
-		fifth(img, img5,"min");
-		fifth(img,img6,"max");
-		sixth(img,img7,"blue");
-		sixth(img,img8,"green");
-		sixth(img,img9,"red");
-		seventh(img,img10,40);
-		cout<<x<<endl; 
-		x++;
-	}
+    char name[20];
+    unsigned int x=1;  
+
+    #pragma omp parallel num_threads(8) 
+    {
+        printf("Erick\n");
+    }
+
+    while(x<5001){
+        sprintf(name,"img/image%d.jpg",x);
+        Mat img = imread(name);
+
+        Mat img1 = img.clone();
+        Mat img2 = img.clone();
+        Mat img3 = img.clone();
+        Mat img4 = img.clone();
+        Mat img5 = img.clone();
+        Mat img6 = img.clone();
+        Mat img7 = img.clone();
+        Mat img8 = img.clone();
+        Mat img9 = img.clone();
+        Mat img10 = img.clone();
+        first(img,img1);
+        second(img, img2);
+        third(img, img3);
+        fourth(img, img4);
+        fifth(img, img5,"min");
+        fifth(img,img6,"max");
+        sixth(img,img7,"blue");
+        sixth(img,img8,"green");
+        sixth(img,img9,"red");
+        seventh(img,img10,40);
+        cout<<x<<endl; 
+        x++;
+    }
     tf = clock();
     cout<<((tf-ti)*0.000001)<<endl; 
-	return 0;
+    return 0;
 }
 
 
@@ -63,7 +71,7 @@ int max(int b, int g, int r){
     if(b>g && b>=r)
         return b;
     else if(g>=b && g>=r)
-            return g;
+        return g;
     else
         return r;
 }
@@ -222,9 +230,9 @@ Mat sixth(Mat src, Mat dst, string channel){
 Mat seventh(Mat src, Mat dst, int numberOfShades){
     if(numberOfShades<=1)
         numberOfShades=2;
-    
+
     int conversionFactor = 255/(numberOfShades-1);
-    
+
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);

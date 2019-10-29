@@ -27,15 +27,13 @@ int main(){
     ti = clock();
 
     char name[20];
-    unsigned int x=1;  
+ //   unsigned int x=1;  
 
-    #pragma omp parallel num_threads(8) 
-    {
-        printf("Erick\n");
-    }
-
-    while(x<5001){
-        sprintf(name,"img/image%d.jpg",x);
+#pragma omp parallel 
+{
+#pragma omp for
+    for(int x=1; x<241; x++){
+        sprintf(name,"img/image%d.png",x);
         Mat img = imread(name);
 
         Mat img1 = img.clone();
@@ -59,8 +57,10 @@ int main(){
         sixth(img,img9,"red");
         seventh(img,img10,40);
         cout<<x<<endl; 
-        x++;
+  //      x++;
     }
+
+}
     tf = clock();
     cout<<((tf-ti)*0.000001)<<endl; 
     return 0;

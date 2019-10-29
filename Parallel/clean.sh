@@ -1,1 +1,1 @@
-rm -r CMakeCache* CMakeF* cmak* Make* 
+rm -r CMakeCache* CMakeF* cmak* Make* gray 

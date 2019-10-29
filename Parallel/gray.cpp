@@ -23,16 +23,20 @@ Mat sixth(Mat src, Mat dst, string channel); //string channel: "blue" | "green" 
 Mat seventh(Mat src, Mat dst, int numberOfShades);
 
 int main(){
-    clock_t ti, tf;
-    ti = clock();
+    //clock_t ti, tf;
+    //ti = clock();
+
+	time_t start, end;
 
     char name[20];
  //   unsigned int x=1;  
 
+time(&start);
 #pragma omp parallel 
 {
 #pragma omp for
-    for(int x=1; x<241; x++){
+
+    for(int x=1; x<17; x++){
         sprintf(name,"img/image%d.png",x);
         Mat img = imread(name);
 
@@ -56,13 +60,15 @@ int main(){
         sixth(img,img8,"green");
         sixth(img,img9,"red");
         seventh(img,img10,40);
-        cout<<x<<endl; 
+        //cout<<x<<endl; 
   //      x++;
     }
 
 }
-    tf = clock();
-    cout<<((tf-ti)*0.000001)<<endl; 
+time(&end);
+    //tf = clock();
+    //cout<<((tf-ti)*0.000001)<<endl; 
+    cout<<double(end-start)<<endl; 
     return 0;
 }
 

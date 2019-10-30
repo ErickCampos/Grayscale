@@ -23,20 +23,15 @@ Mat sixth(Mat src, Mat dst, string channel); //string channel: "blue" | "green" 
 Mat seventh(Mat src, Mat dst, int numberOfShades);
 
 int main(){
-    //clock_t ti, tf;
-    //ti = clock();
 
-	time_t start, end;
+    time_t start, end;
 
     char name[20];
  //   unsigned int x=1;  
 
-time(&start);
-#pragma omp parallel 
-{
-#pragma omp for
 
-    for(int x=1; x<17; x++){
+time(&start);
+    for(int x=1; x<5001; x++){
         sprintf(name,"img/image%d.png",x);
         Mat img = imread(name);
 
@@ -50,6 +45,7 @@ time(&start);
         Mat img8 = img.clone();
         Mat img9 = img.clone();
         Mat img10 = img.clone();
+
         first(img,img1);
         second(img, img2);
         third(img, img3);
@@ -63,11 +59,7 @@ time(&start);
         //cout<<x<<endl; 
   //      x++;
     }
-
-}
-time(&end);
-    //tf = clock();
-    //cout<<((tf-ti)*0.000001)<<endl; 
+    time(&end);
     cout<<double(end-start)<<endl; 
     return 0;
 }
@@ -95,6 +87,8 @@ int min(int b, int g, int r){
 
 // first
 Mat first(Mat src, Mat dst){
+//omp_set_num_threads(4);
+//#pragma omp parallel for
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -109,6 +103,8 @@ Mat first(Mat src, Mat dst){
 
 //second
 Mat second(Mat src, Mat dst){
+//omp_set_num_threads(4);
+//#pragma omp parallel for
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -121,11 +117,14 @@ Mat second(Mat src, Mat dst){
             dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
+
     return dst;
 }
 
 //third
 Mat third(Mat src, Mat dst){
+//omp_set_num_threads(4);
+//#pragma omp parallel for
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -143,6 +142,8 @@ Mat third(Mat src, Mat dst){
 
 //fourth
 Mat fourth(Mat src, Mat dst){
+//omp_set_num_threads(4);
+//#pragma omp parallel for
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -161,6 +162,8 @@ Mat fourth(Mat src, Mat dst){
 Mat fifth(Mat src, Mat dst, string dec){
 
     if(dec=="max"){    
+//omp_set_num_threads(4);
+//#pragma omp parallel for
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -176,6 +179,8 @@ Mat fifth(Mat src, Mat dst, string dec){
     }
 
     if(dec=="min"){    
+//omp_set_num_threads(4);
+//#pragma omp parallel for
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -195,6 +200,8 @@ Mat fifth(Mat src, Mat dst, string dec){
 Mat sixth(Mat src, Mat dst, string channel){
 
     if(channel=="blue"){    
+//omp_set_num_threads(4);
+//#pragma omp parallel for
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -207,6 +214,8 @@ Mat sixth(Mat src, Mat dst, string channel){
     }
 
     else if(channel=="green"){    
+//omp_set_num_threads(4);
+//#pragma omp parallel for
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -219,6 +228,8 @@ Mat sixth(Mat src, Mat dst, string channel){
     }
 
     else if(channel=="red"){    
+//omp_set_num_threads(4);
+//#pragma omp parallel for
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -238,7 +249,8 @@ Mat seventh(Mat src, Mat dst, int numberOfShades){
         numberOfShades=2;
 
     int conversionFactor = 255/(numberOfShades-1);
-
+//omp_set_num_threads(4);
+//#pragma omp parallel for
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);

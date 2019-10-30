@@ -32,7 +32,7 @@ int main(){
 
 time(&start);
     for(int x=1; x<5001; x++){
-        sprintf(name,"img/image%d.png",x);
+        sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
 
         Mat img1 = img.clone();

@@ -23,19 +23,16 @@ Mat sixth(Mat src, Mat dst, string channel); //string channel: "blue" | "green" 
 Mat seventh(Mat src, Mat dst, int numberOfShades);
 
 int main(){
-    clock_t ti, tf;
-    ti = clock();
+
+    time_t start, end;
+    double execution_time;
+    int min, sec;
 
     char name[20];
-    unsigned int x=1;  
 
-    #pragma omp parallel num_threads(8) 
-    {
-        printf("Erick\n");
-    }
-
-    while(x<5001){
-        sprintf(name,"img/image%d.jpg",x);
+    time(&start);
+    for(int x=1; x<5001; x++){
+        sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
 
         Mat img1 = img.clone();
@@ -48,6 +45,7 @@ int main(){
         Mat img8 = img.clone();
         Mat img9 = img.clone();
         Mat img10 = img.clone();
+
         first(img,img1);
         second(img, img2);
         third(img, img3);
@@ -58,11 +56,20 @@ int main(){
         sixth(img,img8,"green");
         sixth(img,img9,"red");
         seventh(img,img10,40);
-        cout<<x<<endl; 
-        x++;
+        //cout<<x<<endl; 
+  //      x++;
     }
-    tf = clock();
-    cout<<((tf-ti)*0.000001)<<endl; 
+
+    time(&end);
+    execution_time = double(end-start);
+
+    min = (int)execution_time/60;
+    sec = (int)execution_time%60;
+    
+    cout<<"Min: " << min << " sec: "<< sec << endl; 
+
+    cout<<double(end-start)<<endl; 
+    cout<<execution_time<<endl; 
     return 0;
 }
 
@@ -87,7 +94,6 @@ int min(int b, int g, int r){
     return min;
 }
 
-// first
 Mat first(Mat src, Mat dst){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
@@ -101,7 +107,6 @@ Mat first(Mat src, Mat dst){
     return dst;
 }
 
-//second
 Mat second(Mat src, Mat dst){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
@@ -115,10 +120,10 @@ Mat second(Mat src, Mat dst){
             dst.at<Vec3b>(x, y).val[2] = method;
         }
     }
+
     return dst;
 }
 
-//third
 Mat third(Mat src, Mat dst){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
@@ -135,7 +140,6 @@ Mat third(Mat src, Mat dst){
     return dst;
 }
 
-//fourth
 Mat fourth(Mat src, Mat dst){
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
@@ -153,7 +157,6 @@ Mat fourth(Mat src, Mat dst){
 }
 
 Mat fifth(Mat src, Mat dst, string dec){
-
     if(dec=="max"){    
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
@@ -169,7 +172,7 @@ Mat fifth(Mat src, Mat dst, string dec){
         }
     }
 
-    if(dec=="min"){    
+    else if(dec=="min"){    
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);

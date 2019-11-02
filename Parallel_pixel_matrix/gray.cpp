@@ -26,12 +26,12 @@ int main(){
 
     time_t start, end;
     double execution_time;
-    int min, sec;
+    int min, sec, hour;
 
     char name[20];
 
     time(&start);
-    for(int x=1; x<500; x++){
+    for(int x=1; x<5001; x++){
         sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
 
@@ -64,11 +64,11 @@ int main(){
 
     min = (int)execution_time/60;
     sec = (int)execution_time%60;
-    
-    cout<<"Min: " << min << " sec: "<< sec << endl; 
-
+	hour = min/60;
+	min = min%60;
+ 
     cout<<double(end-start)<<endl; 
-    cout<<execution_time<<endl; 
+    cout<< hour << "h" << min << "m" << sec << "s" <<endl; 
     return 0;
 }
 
@@ -95,7 +95,7 @@ int min(int b, int g, int r){
 
 Mat first(Mat src, Mat dst){
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -110,7 +110,7 @@ omp_set_num_threads(4);
 
 Mat second(Mat src, Mat dst){
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -129,7 +129,7 @@ omp_set_num_threads(4);
 
 Mat third(Mat src, Mat dst){
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -147,7 +147,7 @@ omp_set_num_threads(4);
 
 Mat fourth(Mat src, Mat dst){
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);
@@ -167,7 +167,7 @@ Mat fifth(Mat src, Mat dst, string dec){
 
     if(dec=="max"){    
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -184,7 +184,7 @@ omp_set_num_threads(4);
 
     else if(dec=="min"){    
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -204,7 +204,7 @@ omp_set_num_threads(4);
 Mat sixth(Mat src, Mat dst, string channel){
     if(channel=="blue"){    
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -218,7 +218,7 @@ omp_set_num_threads(4);
 
     else if(channel=="green"){    
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -232,7 +232,7 @@ omp_set_num_threads(4);
 
     else if(channel=="red"){    
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
         for (int y = 0; y < dst.cols; y++) {
             for (int x = 0; x < dst.rows; x++) {
                 Vec3b pixel = src.at<Vec3b>(x, y);
@@ -253,7 +253,7 @@ Mat seventh(Mat src, Mat dst, int numberOfShades){
 
     int conversionFactor = 255/(numberOfShades-1);
 omp_set_num_threads(4);
-#pragma omp parallel for
+#pragma omp parallel for collapse(2)
     for (int y = 0; y < dst.cols; y++) {
         for (int x = 0; x < dst.rows; x++) {
             Vec3b pixel = src.at<Vec3b>(x, y);

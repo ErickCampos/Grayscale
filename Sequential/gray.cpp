@@ -31,7 +31,7 @@ int main(){
     char name[20];
 
     time(&start);
-    for(int x=1; x<5001; x++){
+    for(int x=1; x<1001; x++){
         sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
 

@@ -26,7 +26,7 @@ int main(){
 
     time_t start, end;
     double execution_time;
-    int min, sec;
+    int min, sec, hour;
 
     char name[20];
 
@@ -65,10 +65,10 @@ int main(){
 
     min = (int)execution_time/60;
     sec = (int)execution_time%60;
+	hour = min/60;
+	min = min%60;
     
-    cout<<"Min: " << min << " sec: "<< sec << endl; 
-
-    cout<<double(end-start)<<endl; 
+	cout << hour <<"h"<< min << "m" << sec <<"s"<< endl;
     cout<<execution_time<<endl; 
     return 0;
 }

@@ -36,7 +36,7 @@ int main(){
 	
     char name[20];
     time(&start);
-    for(int x=1; x<1001; x++){
+    for(int x=1; x<101; x++){
 		if (x%size != rank) continue;
         sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
@@ -62,7 +62,7 @@ int main(){
         sixth(img,img8,"green");
         sixth(img,img9,"red");
         seventh(img,img10,40);
-        cout<<x<<endl; 
+        //cout<<x<<endl; 
     }
 
 	MPI_Finalize();

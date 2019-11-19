@@ -28,16 +28,16 @@ int main(){
     double execution_time;
     int min, sec, hour;
 
-	int rank, size;
+    int rank, size;
 
     MPI_Init(NULL, NULL);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-	
+
     char name[20];
     time(&start);
     for(int x=1; x<101; x++){
-		if (x%size != rank) continue;
+        if (x%size != rank) continue;
         sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
 
@@ -65,17 +65,19 @@ int main(){
         //cout<<x<<endl; 
     }
 
-	MPI_Finalize();
+    MPI_Finalize();
     time(&end);
     execution_time = double(end-start);
 
     min = (int)execution_time/60;
     sec = (int)execution_time%60;
-	hour = min/60;
-	min = min%60; 
-   
-	cout << hour << "h" << min << "m" << sec << "s" << endl;
-    cout<<execution_time<<endl; 
+    hour = min/60;
+    min = min%60; 
+
+    if(rank == 0){ 
+        cout << hour << "h" << min << "m" << sec << "s" << endl;
+        cout<<execution_time<<endl; 
+    }
     return 0;
 }
 

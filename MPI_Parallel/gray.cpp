@@ -29,6 +29,7 @@ int main(){
     int min, sec, hour;
 
     int rank, size;
+    int cont = 0;
 
     MPI_Init(NULL, NULL);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -36,7 +37,7 @@ int main(){
 
     char name[20];
     time(&start);
-    for(int x=1; x<101; x++){
+    for(int x=1; x<5001; x++){
         if (x%size != rank) continue;
         sprintf(name,"../img/image%d.png",x);
         Mat img = imread(name);
@@ -62,6 +63,7 @@ int main(){
         sixth(img,img8,"green");
         sixth(img,img9,"red");
         seventh(img,img10,40);
+        cont++;
         //cout<<x<<endl; 
     }
 
@@ -77,6 +79,7 @@ int main(){
     if(rank == 0){ 
         cout << hour << "h" << min << "m" << sec << "s" << endl;
         cout<<execution_time<<endl; 
+        cout<<"Contador: "<<cont<<endl; 
     }
     return 0;
 }
